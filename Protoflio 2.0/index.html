@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anirudh Kumar | Developer Portfolio</title>
+  <meta name="description" content="Anirudh Kumar — Aspiring Web Developer & Cybersecurity Enthusiast. B.Tech Computer Science (AI & ML) student building secure digital experiences." />
+
+  <!-- Google Fonts — Inter + Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Lucide Icons (lightweight) -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- BACKGROUND CANVAS -->
+  <canvas id="ocean" aria-hidden="true"></canvas>
+
+  <!-- ═══════════════ NAVBAR ═══════════════ -->
+  <header class="navbar" id="navbar">
+    <a href="#home" class="logo" aria-label="Home">
+      <span class="logo-text">AK</span>
+      <span class="logo-dot"></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section id="home" class="hero">
+    <div class="hero-gradient-overlay"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge fade-in">
+        <i data-lucide="graduation-cap" class="badge-icon"></i>
+        B.Tech Computer Science (AI & ML)
+      </div>
+
+      <h1 class="hero-title fade-in delay-1">
+        <span class="hero-greeting">Hello, I'm</span>
+        <span class="hero-name">Anirudh Kumar</span>
+      </h1>
+
+      <p class="hero-subtitle fade-in delay-2">
+        Aspiring Web Developer & Cybersecurity Enthusiast<br />
+        Building secure digital experiences with code and curiosity
+      </p>
+
+      <div class="hero-buttons fade-in delay-3">
+        <a href="#projects" class="btn primary">
+          <i data-lucide="folder-open"></i>
+          View Projects
+        </a>
+        <a href="#contact" class="btn outline">
+          <i data-lucide="mail"></i>
+          Contact Me
+        </a>
+      </div>
+    </div>
+
+    <div class="scroll-indicator fade-in delay-4">
+      <div class="scroll-mouse">
+        <div class="scroll-dot"></div>
+      </div>
+      <span>Scroll Down</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ABOUT ═══════════════ -->
+  <section id="about" class="section-container reveal">
+    <div class="section-header">
+      <span class="section-label">
+        <i data-lucide="user"></i>
+        ABOUT
+      </span>
+      <h2>About <span class="gradient-text">Me</span></h2>
+      <p class="section-subtitle">
+        A brief introduction about who I am and what I do
+      </p>
+    </div>
+    <div id="aboutContent" class="about-content"></div>
+  </section>
+
+  <!-- ═══════════════ SKILLS ═══════════════ -->
+  <section id="skills" class="section-container reveal">
+    <div class="section-header">
+      <span class="section-label">
+        <i data-lucide="code-2"></i>
+        SKILLS
+      </span>
+      <h2>My <span class="gradient-text">Skills</span></h2>
+      <p class="section-subtitle">
+        Technologies and domains I work with
+      </p>
+    </div>
+    <div id="skillsContent" class="skills-grid"></div>
+  </section>
+
+  <!-- ═══════════════ PROJECTS ═══════════════ -->
+  <section id="projects" class="section-container reveal">
+    <div class="section-header">
+      <span class="section-label">
+        <i data-lucide="rocket"></i>
+        PROJECTS
+      </span>
+      <h2><span class="gradient-text">Featured</span></h2>
+      <p class="section-subtitle" id="projectsSubtitle">
+        Showcasing my journey through hands-on project development
+      </p>
+    </div>
+    <div id="featuredProject"></div>
+  </section>
+
+  <!-- ═══════════════ EXPERIENCE ═══════════════ -->
+  <section id="experience" class="section-container reveal">
+    <div class="section-header">
+      <span class="section-label">
+        <i data-lucide="briefcase"></i>
+        EXPERIENCE
+      </span>
+      <h2>My <span class="gradient-text">Experience</span></h2>
+      <p class="section-subtitle">
+        Learning and growth through practical exposure
+      </p>
+    </div>
+    <div id="experienceContent"></div>
+  </section>
+
+  <!-- ═══════════════ CERTIFICATIONS ═══════════════ -->
+  <section id="certifications" class="section-container reveal">
+    <div class="section-header">
+      <span class="section-label">
+        <i data-lucide="award"></i>
+        CERTIFICATIONS
+      </span>
+      <h2>Professional <span class="gradient-text">Certifications</span></h2>
+      <p class="section-subtitle">
+        Verified learning & hands-on achievements
+      </p>
+    </div>
+
+    <div class="cert-wrapper">
+      <button class="cert-arrow left" aria-label="Scroll left">
+        <i data-lucide="chevron-left"></i>
+      </button>
+
+      <div class="cert-scroll">
+        <div class="cert-grid">
+          <!-- Cert cards rendered by JS -->
+        </div>
+      </div>
+
+      <button class="cert-arrow right" aria-label="Scroll right">
+        <i data-lucide="chevron-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CONTACT ═══════════════ -->
+  <section id="contact" class="section-container reveal">
+    <div class="section-header">
+      <span class="section-label">
+        <i data-lucide="send"></i>
+        CONTACT
+      </span>
+      <h2>Get In <span class="gradient-text">Touch</span></h2>
+      <p class="section-subtitle">
+        Feel free to reach out for collaboration or queries
+      </p>
+    </div>
+    <div id="contactContent"></div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="footer">
+    <div class="footer-divider"></div>
+    <div class="footer-content">
+      <div class="footer-socials" id="footerSocialIcons"></div>
+      <p class="footer-copy">© 2026 Anirudh Kumar. Built with <span class="heart">💙</span> and curiosity.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script src="script.js"></script>
+
+</body>
+</html>
