@@ -219,6 +219,103 @@ function loadExperience(experience) {
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".fade").forEach(el => observer.observe(el));
 });
+
+// =========================
+// Hero interactions (lightweight)
+// Smooth scroll, rotating/typing role, entrance animation
+// =========================
+
+function initHeroInteractions() {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Entrance animation for hero-inner
+  const heroInner = document.querySelector('.hero-inner');
+  if (heroInner) {
+    if (prefersReduced) {
+      heroInner.classList.add('is-visible');
+    } else {
+      // small delay for nicer sequencing
+      window.requestAnimationFrame(() => {
+        setTimeout(() => heroInner.classList.add('is-visible'), 120);
+      });
+    }
+  }
+
+  // Smooth scroll for in-page hero links (hash targets)
+  const heroLinks = document.querySelectorAll('.hero-cta a[href^="#"]');
+  heroLinks.forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'start' });
+      // update focus for accessibility
+      if (!prefersReduced) target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    });
+  });
+
+  // Rotating / typing role text (lightweight)
+  const roleEl = document.querySelector('.hero-role');
+  if (!roleEl) return;
+
+  const roles = [
+    'AI & Cybersecurity Developer',
+    'Security-focused ML Engineer',
+    'Full-stack Web Engineer'
+  ];
+
+  // Prepare DOM
+  roleEl.innerHTML = '<span class="role-text"></span><span class="role-cursor" aria-hidden="true"></span>';
+  const textEl = roleEl.querySelector('.role-text');
+
+  let idx = 0;
+
+  function typeAndHold(text, cb) {
+    if (prefersReduced) { textEl.textContent = text; if (cb) cb(); return; }
+    textEl.textContent = '';
+    let i = 0;
+    const speed = 40; // ms per char
+    function step() {
+      if (i < text.length) {
+        textEl.textContent += text.charAt(i++);
+        setTimeout(step, speed);
+      } else {
+        // hold then callback
+        setTimeout(() => cb && cb(), 1000);
+      }
+    }
+    step();
+  }
+
+  function cycle() {
+    const next = roles[idx % roles.length];
+    typeAndHold(next, () => {
+      if (prefersReduced) return; // stop cycling
+      // delete effect (fast)
+      let cur = textEl.textContent;
+      let j = cur.length;
+      const delSpeed = 30;
+      function delStep() {
+        if (j > 0) {
+          textEl.textContent = cur.slice(0, --j);
+          setTimeout(delStep, delSpeed);
+        } else {
+          idx++;
+          setTimeout(cycle, 160);
+        }
+      }
+      setTimeout(delStep, 600);
+    });
+  }
+
+  // start
+  cycle();
+}
+
+document.addEventListener('DOMContentLoaded', initHeroInteractions);
 const canvas = document.getElementById("ocean");
 const ctx = canvas.getContext("2d");
 
