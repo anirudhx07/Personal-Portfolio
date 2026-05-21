@@ -71,33 +71,83 @@ document.querySelectorAll(".fade-up").forEach(el => {
 });
 
 function loadAbout(data) {
-  document.getElementById("about").innerHTML = `
-    <section class="section">
-      <h2>${data.about.title}</h2>
-      <p>${data.about.description.replace(/\n/g, "<br><br>")}</p>
-    </section>
+  // render into the aboutContent container (keeps section header intact)
+  document.getElementById("aboutContent").innerHTML = `
+    <div class="about-simple fade-up">
+      <p class="lead">${data.about.description.replace(/\n/g, "<br><br>")}</p>
+    </div>
   `;
+  // ensure newly-inserted fade-up elements are observed so they animate and become visible
+  try {
+    const aboutContainer = document.getElementById('aboutContent');
+    const newFadeEls = aboutContainer.querySelectorAll('.fade-up');
+    newFadeEls.forEach(el => {
+      // observe using the global observer defined earlier
+      if (typeof observer !== 'undefined' && observer.observe) observer.observe(el);
+      // if element already in viewport, reveal immediately
+      const rect = el.getBoundingClientRect();
+      if (rect.top >= 0 && rect.top < window.innerHeight) el.classList.add('show');
+    });
+  } catch (e) {
+    // fail silently — visibility will be handled by existing scripts
+    console.warn('About observe error', e);
+  }
 }
 
 function loadSkills(skills) {
+  const categoryIcons = {
+    Frontend: "layout-grid",
+    Backend: "server",
+    Cybersecurity: "shield",
+    "AI/ML": "brain"
+  };
+
+  const skillIcons = {
+    HTML: "code-2",
+    CSS: "paintbrush",
+    JavaScript: "braces",
+    React: "atom",
+    Python: "terminal",
+    Flask: "flask-conical",
+    "Node.js": "workflow",
+    MySQL: "database",
+    "Burp Suite": "shield-check",
+    Nmap: "radar",
+    Wireshark: "waves",
+    Linux: "monitor-cog",
+    Pandas: "table-2",
+    "Scikit-learn": "search",
+    "TensorFlow Basics": "brain-circuit"
+  };
+
   const html = skills.map(skill => `
-    <div class="card">
-      <h3>${skill.category}</h3>
-      ${skill.items.map(item => `
-        <p>${item.name}</p>
-        <div class="bar">
-          <span style="width:${item.level}%"></span>
-        </div>
-      `).join("")}
+    <div class="skill-card fade-up">
+      <div class="skill-card-header">
+        <span class="skill-card-icon" aria-hidden="true"><i data-lucide="${categoryIcons[skill.category] || 'badge-info'}"></i></span>
+        <h3>${skill.category}</h3>
+      </div>
+      <div class="skill-badges" aria-label="${skill.category} skills">
+        ${skill.items.map(item => `
+          <span class="skill-badge">
+            <i class="skill-badge-icon" data-lucide="${skillIcons[item.name] || 'sparkles'}" aria-hidden="true"></i>
+            <span>${item.name}</span>
+          </span>
+        `).join("")}
+      </div>
     </div>
   `).join("");
 
   document.getElementById("skills").innerHTML = `
     <section class="section">
       <h2>Skills</h2>
-      <div class="grid">${html}</div>
+      <div class="skills-grid">${html}</div>
     </section>
   `;
+
+  document.querySelectorAll("#skills .fade-up").forEach(el => observer.observe(el));
+  if (window.lucide && typeof window.lucide.createIcons === "function") {
+    window.lucide.createIcons();
+  }
 }
 
 function loadProjects(projects) {

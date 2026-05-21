@@ -1,7 +1,7 @@
 {
   "about": {
     "title": "About Me",
-    "description": "I am a Computer Science student specializing in AI & Machine Learning, driven by curiosity about how technology shapes our digital world. I started my journey with simple HTML pages and gradually developed a strong interest in web development and cybersecurity.\n\nI believe in learning by doing—whether it’s building AI-powered security tools, participating in hackathons, or exploring drone technologies with my university’s Aeromodelling Club."
+    "description": "I’m a B.Tech Computer Science student specializing in AI & Machine Learning, focused on building secure and intelligent digital solutions. My interests lie at the intersection of web development, cybersecurity, and AI-powered applications.\n\nI enjoy creating practical projects such as phishing detection systems and secure web tools while continuously exploring ethical hacking, machine learning, and modern full-stack development. I believe strong technical skills are built through hands-on experimentation, hackathons, and real-world problem solving."
   },
 
   "education": {
@@ -12,35 +12,39 @@
 
   "skills": [
     {
-      "category": "Web Development",
+      "category": "Frontend",
       "items": [
-        { "name": "HTML", "level": 85 },
-        { "name": "CSS", "level": 80 },
-        { "name": "JavaScript", "level": 75 }
+        { "name": "HTML" },
+        { "name": "CSS" },
+        { "name": "JavaScript" },
+        { "name": "React" }
       ]
     },
     {
-      "category": "Backend & Programming",
+      "category": "Backend",
       "items": [
-        { "name": "Python", "level": 80 },
-        { "name": "C", "level": 70 },
-        { "name": "Databases", "level": 65 }
+        { "name": "Python" },
+        { "name": "Flask" },
+        { "name": "Node.js" },
+        { "name": "MySQL" }
       ]
     },
     {
       "category": "Cybersecurity",
       "items": [
-        { "name": "Security Concepts", "level": 70 },
-        { "name": "CTF Challenges", "level": 65 },
-        { "name": "Red Teaming Basics", "level": 55 }
+        { "name": "Burp Suite" },
+        { "name": "Nmap" },
+        { "name": "Wireshark" },
+        { "name": "Linux" }
       ]
     },
     {
-      "category": "Other Technologies",
+      "category": "AI/ML",
       "items": [
-        { "name": "AI/ML Fundamentals", "level": 60 },
-        { "name": "Drone Technology", "level": 50 },
-        { "name": "Git & GitHub", "level": 75 }
+        { "name": "Python" },
+        { "name": "Pandas" },
+        { "name": "Scikit-learn" },
+        { "name": "TensorFlow Basics" }
       ]
     }
   ],
