@@ -2,56 +2,16 @@ let data = null;
 
 fetch("data/content.json")
   .then(res => res.json())
-  .then(data => {
+  .then(payload => {
+    data = payload; // cache globally for functions that may use it
     loadAbout(data);
     loadSkills(data.skills);
     loadProjects(data.projects);
     loadExperience(data.experience);
     loadCertifications(data.certifications);
     loadContact(data.contact);
-  });
- 
-  function renderCertificates() {
-  const grid = document.querySelector(".cert-grid");
-  if (!grid || !data.certifications) return;
-
-  grid.innerHTML = "";
-
-  data.certifications.forEach(cert => {
-    const card = document.createElement("div");
-    card.className = "cert-card";
-
-    card.innerHTML = `
-      <img src="assets/images/certificates/${cert.image}" alt="${cert.name}">
-      <div class="cert-body">
-        <h3>${cert.name}</h3>
-        <p class="issuer">${cert.issuer}</p>
-        <p class="date">${cert.year}</p>
-
-        <div class="tags">
-          ${cert.skills.map(s => `<span class="tag">${s}</span>`).join("")}
-        </div>
-
-        <a class="view-link" href="${cert.link}" target="_blank">
-          View Credential ↗
-        </a>
-      </div>
-    `;
-
-    grid.appendChild(card);
-  });
-}
-
-fetch("data/content.json")
-  .then(response => response.json())
-  .then(data => {
-    loadAbout(data);
-    loadSkills(data.skills);
-    loadProjects(data.projects);
-    loadExperience(data.experience);
-    loadCertifications(data.certifications);
-    loadContact(data.contact);
-  });
+  })
+  .catch(err => console.error('Failed to load content.json', err));
 
 const observer = new IntersectionObserver(
   (entries) => {
@@ -137,57 +97,101 @@ function loadSkills(skills) {
     </div>
   `).join("");
 
-  document.getElementById("skills").innerHTML = `
-    <section class="section">
-      <h2>Skills</h2>
-      <div class="skills-grid">${html}</div>
-    </section>
-  `;
-
-  document.querySelectorAll("#skills .fade-up").forEach(el => observer.observe(el));
+  const skillsContainer = document.getElementById("skillsContent");
+  if (skillsContainer) {
+    skillsContainer.innerHTML = `<div class="skills-grid">${html}</div>`;
+    const newEls = skillsContainer.querySelectorAll('.fade-up');
+    newEls.forEach(el => observer.observe(el));
+  }
   if (window.lucide && typeof window.lucide.createIcons === "function") {
     window.lucide.createIcons();
   }
 }
 
 function loadProjects(projects) {
-  document.getElementById("projectsSubtitle").innerText =
-    projects.subtitle;
+  // set a subtitle if provided by content.json — do not overwrite project grid markup
+  const subtitleEl = document.getElementById("projectsSubtitle");
+  if (subtitleEl && projects.subtitle) subtitleEl.innerText = projects.subtitle;
 
-  const p = projects.featured;
-
-  document.getElementById("featuredProject").innerHTML = `
-    <div class="featured-card">
-      <div class="featured-header">
-        <div class="icon">🛡️</div>
-        <div>
-          <span class="featured-label">FEATURED PROJECT</span>
-          <h3>${p.name}</h3>
-        </div>
-        <span class="status">${p.status}</span>
-      </div>
-
-      <p class="project-desc">${p.description}</p>
-
-      <div class="tags">
-        ${p.tags
-          .map(
-            t => `<span class="tag ${t.color}">${t.label}</span>`
-          )
-          .join("")}
-      </div>
-
-      <div class="project-actions">
-        <a href="${p.codeLink}" target="_blank" class="btn primary">
-          View Code ↗
-        </a>
-        <a href="${p.detailsLink}" class="btn outline">
-          Project Details
-        </a>
-      </div>
-    </div>
-  `;
+  // initialize interactions (filtering, lazy images, animations)
+  try {
+    initProjectInteractions();
+  } catch (e) {
+    console.warn('initProjectInteractions error', e);
+  }
 }
+
+/* Project interactions: filtering, lazy-load images, and reveal animations */
+function initProjectInteractions() {
+  // Filtering
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = Array.from(document.querySelectorAll('.project-card'));
+
+  function applyFilter(filter) {
+    cards.forEach(card => {
+      const cat = card.dataset.category || 'all';
+      if (filter === 'all' || cat === filter) {
+        card.classList.remove('filtered-out');
+        card.style.display = '';
+        // ensure reveal observer re-adds show class
+        if (typeof observer !== 'undefined') observer.observe(card);
+      } else {
+        card.classList.add('filtered-out');
+        // hide after animation so layout transitions smoothly
+        setTimeout(() => { card.style.display = 'none'; }, 280);
+      }
+    });
+  }
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+      applyFilter(btn.dataset.filter);
+    });
+  });
+
+  // Lazy-load project images with IntersectionObserver
+  const imgs = document.querySelectorAll('.project-thumb-img');
+  const imgObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const img = en.target;
+      const src = img.dataset.src;
+      if (src) {
+        const fallbackSrc = img.getAttribute('src') || '';
+        img.src = src;
+        img.onload = () => img.classList.add('loaded');
+        img.onerror = () => {
+          if (fallbackSrc && img.src !== fallbackSrc) {
+            img.src = fallbackSrc;
+          }
+          img.classList.add('loaded');
+        };
+        img.removeAttribute('data-src');
+      }
+      obs.unobserve(img);
+    });
+  }, { rootMargin: '200px 0px' });
+
+  imgs.forEach(i => imgObserver.observe(i));
+
+  // Ensure keyboard accessibility for filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+    });
+  });
+
+  // initial reveal for cards already in view
+  cards.forEach(c => { if (typeof observer !== 'undefined') observer.observe(c); });
+}
+
+// ensure interactions are initialized on DOM load if content.json already called loadProjects earlier
+document.addEventListener('DOMContentLoaded', () => {
+  try { initProjectInteractions(); } catch (e) { /* ignore */ }
+});
 
 function loadCertifications(certs) {
   const grid = document.querySelector(".cert-grid");
@@ -222,25 +226,25 @@ function loadCertifications(certs) {
 }
 
 function loadContact(contact) {
-  document.getElementById("contact").innerHTML = `
-    <section class="section">
-      <h2>Contact</h2>
-
-      <form class="contact-form">
+  const contactContainer = document.getElementById('contactContent');
+  if (contactContainer) {
+    contactContainer.innerHTML = `
+      <form class="contact-form fade-up">
         <input type="text" placeholder="Your Name" required />
         <input type="email" placeholder="Your Email" required />
         <textarea rows="5" placeholder="Your Message" required></textarea>
         <button class="btn primary">Send Message</button>
       </form>
 
-      <div class="contact-links">
+      <div class="contact-links fade-up">
         <a href="${contact.linkedin}" target="_blank">LinkedIn</a>
         <a href="${contact.github}" target="_blank">GitHub</a>
         <a href="${contact.instagram}" target="_blank">Instagram</a>
         <p>Email: ${contact.email}</p>
       </div>
-    </section>
-  `;
+    `;
+    contactContainer.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  }
 }
 
 function loadExperience(experience) {
@@ -256,14 +260,11 @@ function loadExperience(experience) {
     </div>
   `).join("");
 
-  document.getElementById("experience").innerHTML = `
-    <section class="section">
-      <h2>Experience</h2>
-      <div class="timeline">
-        ${html}
-      </div>
-    </section>
-  `;
+  const expContainer = document.getElementById('experienceContent');
+  if (expContainer) {
+    expContainer.innerHTML = `<div class="timeline">${html}</div>`;
+    expContainer.querySelectorAll('.fade').forEach(el => observer.observe(el));
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {

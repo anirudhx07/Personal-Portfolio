@@ -115,10 +115,6 @@
   <!-- ═══════════════ SKILLS ═══════════════ -->
   <section id="skills" class="section-container reveal">
     <div class="section-header">
-      <span class="section-label">
-        <i data-lucide="code-2"></i>
-        SKILLS
-      </span>
       <h2>My <span class="gradient-text">Skills</span></h2>
       <p class="section-subtitle">
         Technologies and domains I work with
@@ -130,25 +126,150 @@
   <!-- ═══════════════ PROJECTS ═══════════════ -->
   <section id="projects" class="section-container reveal">
     <div class="section-header">
-      <span class="section-label">
-        <i data-lucide="rocket"></i>
-        PROJECTS
-      </span>
-      <h2><span class="gradient-text">Featured</span></h2>
+      <h2>Featured <span class="gradient-text">Projects</span></h2>
       <p class="section-subtitle" id="projectsSubtitle">
         Showcasing my journey through hands-on project development
       </p>
     </div>
-    <div id="featuredProject"></div>
+      <div id="projectsGrid" class="projects-grid">
+        <!-- Project Card: AI Phishing Detection System -->
+        <article class="project-card fade-up" data-category="cybersecurity" aria-label="Project: AI Phishing Detection System">
+          <div class="project-thumb" aria-hidden="false">
+            <img class="project-thumb-img" src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720' viewBox='0 0 1200 720'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='100%25' stop-color='%23111c32'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='720' fill='url(%23g)'/%3E%3Ccircle cx='980' cy='150' r='120' fill='%2322d3ee' fill-opacity='0.15'/%3E%3Ccircle cx='240' cy='560' r='180' fill='%236ee7b7' fill-opacity='0.10'/%3E%3Crect x='92' y='92' width='1016' height='536' rx='28' fill='none' stroke='%2322d3ee' stroke-opacity='0.22' stroke-width='4' stroke-dasharray='12 10'/%3E%3Ctext x='110' y='184' fill='%23dffcff' font-family='Inter,Arial,sans-serif' font-size='54' font-weight='700'%3EProject Preview%3C/text%3E%3Ctext x='110' y='250' fill='%239ca3af' font-family='Inter,Arial,sans-serif' font-size='28'%3EAI Phishing Detection System%3C/text%3E%3C/svg%3E" alt="AI Phishing Detection System screenshot" loading="lazy">
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">AI Phishing Detection System</h3>
+            <p class="project-desc">Detected phishing URLs and emails using ensemble ML with engineered URL/text features; deployed as a Flask scoring API for real-time protect-and-block workflows.</p>
+            <div class="project-badges">
+              <span class="badge">Python</span>
+              <span class="badge">scikit-learn</span>
+              <span class="badge">XGBoost</span>
+              <span class="badge">Flask</span>
+              <span class="badge">Docker</span>
+            </div>
+            <div class="project-meta">97.8% detection accuracy · avg API latency 120ms</div>
+          </div>
+          <div class="project-actions">
+            <a class="btn btn-secondary" href="#" target="_blank" rel="noopener" aria-label="Open AI Phishing Detection System GitHub (new tab)">GitHub</a>
+            <a class="btn btn-primary" href="#" target="_blank" rel="noopener" aria-label="Open AI Phishing Detection System Live demo (new tab)">Live Demo</a>
+          </div>
+        </article>
+
+        <!-- Project Card: Password Strength Analyzer -->
+        <article class="project-card fade-up" data-category="cybersecurity" aria-label="Project: Password Strength Analyzer">
+          <div class="project-thumb">
+            <img class="project-thumb-img" src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720' viewBox='0 0 1200 720'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230b1220'/%3E%3Cstop offset='100%25' stop-color='%23161f35'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='720' fill='url(%23g)'/%3E%3Crect x='80' y='92' width='1040' height='536' rx='28' fill='none' stroke='%236ee7b7' stroke-opacity='0.22' stroke-width='4'/%3E%3Ctext x='110' y='184' fill='%23dffcff' font-family='Inter,Arial,sans-serif' font-size='54' font-weight='700'%3EProject Preview%3C/text%3E%3Ctext x='110' y='250' fill='%239ca3af' font-family='Inter,Arial,sans-serif' font-size='28'%3EPassword Strength Analyzer%3C/text%3E%3C/svg%3E" alt="Password Strength Analyzer screenshot" loading="lazy">
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Password Strength Analyzer</h3>
+            <p class="project-desc">Client-side entropy analysis and pattern detection with actionable suggestions and a visual strength meter to reduce weak-password usage.</p>
+            <div class="project-badges">
+              <span class="badge">JavaScript</span>
+              <span class="badge">zxcvbn</span>
+              <span class="badge">HTML</span>
+              <span class="badge">CSS</span>
+            </div>
+            <div class="project-meta">Real-time entropy scoring · 3 suggested strong alternatives</div>
+          </div>
+          <div class="project-actions">
+            <a class="btn btn-secondary" href="#" target="_blank" rel="noopener" aria-label="Open Password Strength Analyzer GitHub (new tab)">GitHub</a>
+            <a class="btn btn-primary" href="#" target="_blank" rel="noopener" aria-label="Open Password Strength Analyzer Live demo (new tab)">Live Demo</a>
+          </div>
+        </article>
+
+        <!-- Project Card: Portfolio Website -->
+        <article class="project-card fade-up" data-category="web" aria-label="Project: Portfolio Website">
+          <div class="project-thumb">
+            <img class="project-thumb-img" src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720' viewBox='0 0 1200 720'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='100%25' stop-color='%231e293b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='720' fill='url(%23g)'/%3E%3Cpath d='M90 120h1020v480H90z' fill='none' stroke='%2322d3ee' stroke-opacity='0.18' stroke-width='4'/%3E%3Ctext x='110' y='184' fill='%23dffcff' font-family='Inter,Arial,sans-serif' font-size='54' font-weight='700'%3EProject Preview%3C/text%3E%3Ctext x='110' y='250' fill='%239ca3af' font-family='Inter,Arial,sans-serif' font-size='28'%3EPortfolio Website%3C/text%3E%3C/svg%3E" alt="Portfolio Website screenshot" loading="lazy">
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Portfolio Website</h3>
+            <p class="project-desc">Dark cyber-themed responsive portfolio showcasing projects, optimized for performance and accessibility with modular components.</p>
+            <div class="project-badges">
+              <span class="badge">HTML</span>
+              <span class="badge">CSS</span>
+              <span class="badge">JavaScript</span>
+              <span class="badge">Responsive</span>
+            </div>
+            <div class="project-meta">Lighthouse score ≈95 (performance & accessibility)</div>
+          </div>
+          <div class="project-actions">
+            <a class="btn btn-secondary" href="#" target="_blank" rel="noopener" aria-label="Open Portfolio Website GitHub (new tab)">GitHub</a>
+            <a class="btn btn-primary" href="#" target="_blank" rel="noopener" aria-label="Open Portfolio Website Live demo (new tab)">Live Demo</a>
+          </div>
+        </article>
+
+        <!-- Project Card: Network Scanner Tool -->
+        <article class="project-card fade-up" data-category="cybersecurity" aria-label="Project: Network Scanner Tool">
+          <div class="project-thumb">
+            <img class="project-thumb-img" src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720' viewBox='0 0 1200 720'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2308111d'/%3E%3Cstop offset='100%25' stop-color='%2318273a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='720' fill='url(%23g)'/%3E%3Ccircle cx='870' cy='180' r='110' fill='%2322d3ee' fill-opacity='0.12'/%3E%3Crect x='80' y='92' width='1040' height='536' rx='28' fill='none' stroke='%2322d3ee' stroke-opacity='0.22' stroke-width='4'/%3E%3Ctext x='110' y='184' fill='%23dffcff' font-family='Inter,Arial,sans-serif' font-size='54' font-weight='700'%3EProject Preview%3C/text%3E%3Ctext x='110' y='250' fill='%239ca3af' font-family='Inter,Arial,sans-serif' font-size='28'%3ENetwork Scanner Tool%3C/text%3E%3C/svg%3E" alt="Network Scanner Tool screenshot" loading="lazy">
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Network Scanner Tool</h3>
+            <p class="project-desc">Fast host discovery and port fingerprinting tool with parallel scanning and adaptive timeouts for large subnet audits.</p>
+            <div class="project-badges">
+              <span class="badge">Go</span>
+              <span class="badge">goroutines</span>
+              <span class="badge">Nmap</span>
+              <span class="badge">CLI</span>
+            </div>
+            <div class="project-meta">Scans 1000+ hosts/min with parallel TCP fingerprinting</div>
+          </div>
+          <div class="project-actions">
+            <a class="btn btn-secondary" href="#" target="_blank" rel="noopener" aria-label="Open Network Scanner Tool GitHub (new tab)">GitHub</a>
+            <a class="btn btn-primary" href="#" target="_blank" rel="noopener" aria-label="Open Network Scanner Tool Live demo (new tab)">Live Demo</a>
+          </div>
+        </article>
+
+        <!-- Project Card: ML-based Spam Classifier -->
+        <article class="project-card fade-up" data-category="ai-ml" aria-label="Project: ML-based Spam Classifier">
+          <div class="project-thumb">
+            <img class="project-thumb-img" src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720' viewBox='0 0 1200 720'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='100%25' stop-color='%2312162a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='720' fill='url(%23g)'/%3E%3Crect x='80' y='92' width='1040' height='536' rx='28' fill='none' stroke='%236ee7b7' stroke-opacity='0.18' stroke-width='4'/%3E%3Ctext x='110' y='184' fill='%23dffcff' font-family='Inter,Arial,sans-serif' font-size='54' font-weight='700'%3EProject Preview%3C/text%3E%3Ctext x='110' y='250' fill='%239ca3af' font-family='Inter,Arial,sans-serif' font-size='28'%3EML-based Spam Classifier%3C/text%3E%3C/svg%3E" alt="ML-based Spam Classifier screenshot" loading="lazy">
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">ML-based Spam Classifier</h3>
+            <p class="project-desc">NLP pipeline (TF–IDF + ensemble) with explainable SHAP outputs for reliable message classification and analysis.</p>
+            <div class="project-badges">
+              <span class="badge">Python</span>
+              <span class="badge">scikit-learn</span>
+              <span class="badge">NLTK</span>
+              <span class="badge">Pandas</span>
+            </div>
+            <div class="project-meta">94% F1-score · inference <30ms/message</div>
+          </div>
+          <div class="project-actions">
+            <a class="btn btn-secondary" href="#" target="_blank" rel="noopener" aria-label="Open ML-based Spam Classifier GitHub (new tab)">GitHub</a>
+            <a class="btn btn-primary" href="#" target="_blank" rel="noopener" aria-label="Open ML-based Spam Classifier Live demo (new tab)">Live Demo</a>
+          </div>
+        </article>
+
+        <!-- Project Card: Face Detection Attendance System -->
+        <article class="project-card fade-up" data-category="ai-ml" aria-label="Project: Face Detection Attendance System">
+          <div class="project-thumb">
+            <img class="project-thumb-img" src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720' viewBox='0 0 1200 720'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230a1120'/%3E%3Cstop offset='100%25' stop-color='%23141d31'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='720' fill='url(%23g)'/%3E%3Ccircle cx='280' cy='180' r='120' fill='%236ee7b7' fill-opacity='0.10'/%3E%3Crect x='80' y='92' width='1040' height='536' rx='28' fill='none' stroke='%2322d3ee' stroke-opacity='0.20' stroke-width='4'/%3E%3Ctext x='110' y='184' fill='%23dffcff' font-family='Inter,Arial,sans-serif' font-size='54' font-weight='700'%3EProject Preview%3C/text%3E%3Ctext x='110' y='250' fill='%239ca3af' font-family='Inter,Arial,sans-serif' font-size='28'%3EFace Detection Attendance System%3C/text%3E%3C/svg%3E" alt="Face Detection Attendance System screenshot" loading="lazy">
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Face Detection Attendance System</h3>
+            <p class="project-desc">Camera-based attendance with OpenCV and dlib embeddings; local DB logging and a simple web UI for roll-call automation.</p>
+            <div class="project-badges">
+              <span class="badge">OpenCV</span>
+              <span class="badge">dlib</span>
+              <span class="badge">Python</span>
+              <span class="badge">Flask</span>
+            </div>
+            <div class="project-meta">>98% recognition (controlled lighting) · 15 fps processing</div>
+          </div>
+          <div class="project-actions">
+            <a class="btn btn-secondary" href="#" target="_blank" rel="noopener" aria-label="Open Face Detection Attendance System GitHub (new tab)">GitHub</a>
+            <a class="btn btn-primary" href="#" target="_blank" rel="noopener" aria-label="Open Face Detection Attendance System Live demo (new tab)">Live Demo</a>
+          </div>
+        </article>
+      </div>
   </section>
 
   <!-- ═══════════════ EXPERIENCE ═══════════════ -->
   <section id="experience" class="section-container reveal">
     <div class="section-header">
-      <span class="section-label">
-        <i data-lucide="briefcase"></i>
-        EXPERIENCE
-      </span>
       <h2>My <span class="gradient-text">Experience</span></h2>
       <p class="section-subtitle">
         Learning and growth through practical exposure
@@ -160,10 +281,6 @@
   <!-- ═══════════════ CERTIFICATIONS ═══════════════ -->
   <section id="certifications" class="section-container reveal">
     <div class="section-header">
-      <span class="section-label">
-        <i data-lucide="award"></i>
-        CERTIFICATIONS
-      </span>
       <h2>Professional <span class="gradient-text">Certifications</span></h2>
       <p class="section-subtitle">
         Verified learning & hands-on achievements
@@ -190,10 +307,6 @@
   <!-- ═══════════════ CONTACT ═══════════════ -->
   <section id="contact" class="section-container reveal">
     <div class="section-header">
-      <span class="section-label">
-        <i data-lucide="send"></i>
-        CONTACT
-      </span>
       <h2>Get In <span class="gradient-text">Touch</span></h2>
       <p class="section-subtitle">
         Feel free to reach out for collaboration or queries
