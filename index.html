@@ -6,11 +6,11 @@
   <title>Anirudh Kumar | Developer Portfolio</title>
   <meta name="description" content="Anirudh Kumar — Aspiring Web Developer & Cybersecurity Enthusiast. B.Tech Computer Science (AI & ML) student building secure digital experiences." />
 
-  <!-- Google Fonts — Inter + Outfit -->
+  <!-- Google Fonts — Space Grotesk + Inter + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
     rel="stylesheet"
   />
 
@@ -57,54 +57,71 @@
 
   <!-- ═══════════════ HERO ═══════════════ -->
   <section id="home" class="hero">
+    <div class="hero-dots" aria-hidden="true"></div>
     <div class="hero-gradient-overlay"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content" role="region" aria-labelledby="hero-heading">
       <div class="hero-inner">
-        <span class="hero-badge" aria-hidden="false">
-          <i data-lucide="graduation-cap" class="badge-icon" aria-hidden="true"></i>
-          B.Tech Computer Science (AI & ML)
-        </span>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="hero-badge" aria-hidden="false">
+              <i data-lucide="graduation-cap" class="badge-icon" aria-hidden="true"></i>
+              B.Tech Computer Science (AI & ML)
+            </span>
 
-        <header class="hero-header">
-          <p class="hero-pretitle" id="hero-pretitle">AI & ML Developer</p>
-          <h1 id="hero-heading" class="hero-title">
-            Anirudh Kumar
-          </h1>
-          <p class="hero-role">AI & Cybersecurity Developer</p>
-        </header>
+            <header class="hero-header">
+              <p class="hero-pretitle" id="hero-pretitle">AI & ML Developer</p>
+              <h1 id="hero-heading" class="hero-title">
+                Anirudh Kumar
+              </h1>
+              <p class="hero-role">AI & Cybersecurity Developer</p>
+            </header>
 
-        <p class="hero-subtitle">
-          AI-focused developer building secure web systems and tools —
-          combining practical security with machine learning applications.
-        </p>
+            <p class="hero-subtitle">
+              AI-focused developer building secure web systems and tools —
+              combining practical security with machine learning applications.
+            </p>
 
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="#projects" aria-label="View Projects">
-            <i data-lucide="folder-open" aria-hidden="true"></i>
-            View Projects
-          </a>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#projects" aria-label="View Projects">
+                <i data-lucide="folder-open" aria-hidden="true"></i>
+                View Projects
+              </a>
 
-          <a class="btn btn-primary" href="assets/Anirudh_Kumar_Resume.pdf" download rel="noopener" aria-label="Download Resume">
-            <i data-lucide="download" aria-hidden="true"></i>
-            Download Resume
-          </a>
+              <a class="btn btn-primary" href="assets/Anirudh_Kumar_Resume.pdf" download rel="noopener" aria-label="Download Resume">
+                <i data-lucide="download" aria-hidden="true"></i>
+                Download Resume
+              </a>
+            </div>
+
+            <div class="hero-socials" aria-label="Social links">
+              <a href="https://github.com/anirudhx07" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
+                <i class="fa-brands fa-github" aria-hidden="true"></i>
+                <span class="sr-only">GitHub</span>
+              </a>
+              <a href="https://www.linkedin.com/in/anirudhx07" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+                <span class="sr-only">LinkedIn</span>
+              </a>
+              <a href="mailto:anirudh@example.com" class="social-link" aria-label="Email">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                <span class="sr-only">Email</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-hidden="true">
+            <div class="hero-avatar-ring">
+              <div class="hero-avatar">AK</div>
+            </div>
+            <p class="hero-visual-caption">Dark cyber-blue builder • AI, security, and modern web systems</p>
+          </div>
         </div>
 
-        <div class="hero-socials" aria-label="Social links">
-          <a href="https://github.com/anirudhx07" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
-            <i class="fa-brands fa-github" aria-hidden="true"></i>
-            <span class="sr-only">GitHub</span>
-          </a>
-          <a href="https://www.linkedin.com/in/anirudhx07" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
-            <span class="sr-only">LinkedIn</span>
-          </a>
-          <a href="mailto:anirudh@example.com" class="social-link" aria-label="Email">
-            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-            <span class="sr-only">Email</span>
-          </a>
-        </div>
+        <a class="hero-scroll-indicator" href="#about" aria-label="Scroll to About section">
+          <span class="hero-scroll-indicator-text">Scroll</span>
+          <i data-lucide="arrow-down" aria-hidden="true"></i>
+        </a>
       </div>
     </div>
   </section>
