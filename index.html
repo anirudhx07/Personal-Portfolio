@@ -17,6 +17,14 @@
   <!-- Lucide Icons (lightweight) -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 
+  <!-- Font Awesome for reliable hero social icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -59,7 +67,7 @@
         </span>
 
         <header class="hero-header">
-          <p class="hero-pretitle" id="hero-pretitle">AI & Cybersecurity Developer</p>
+          <p class="hero-pretitle" id="hero-pretitle">AI & ML Developer</p>
           <h1 id="hero-heading" class="hero-title">
             Anirudh Kumar
           </h1>
@@ -85,15 +93,15 @@
 
         <div class="hero-socials" aria-label="Social links">
           <a href="https://github.com/anirudhx07" class="social-link" target="_blank" rel="noopener" aria-label="GitHub">
-            <i data-lucide="github" aria-hidden="true"></i>
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span>
           </a>
           <a href="https://www.linkedin.com/in/anirudhx07" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
-            <i data-lucide="linkedin" aria-hidden="true"></i>
+            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
             <span class="sr-only">LinkedIn</span>
           </a>
           <a href="mailto:anirudh@example.com" class="social-link" aria-label="Email">
-            <i data-lucide="mail" aria-hidden="true"></i>
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
             <span class="sr-only">Email</span>
           </a>
         </div>
@@ -268,6 +276,39 @@
   </section>
 
   <!-- ═══════════════ EXPERIENCE ═══════════════ -->
+  
+  <!-- ═══════════════ GITHUB ACTIVITY ═══════════════ -->
+  <section id="github-activity" class="section-container reveal">
+    <div class="section-header">
+      <h2>GitHub <span class="gradient-text">Activity</span></h2>
+      <p class="section-subtitle">Open-source contributions and coding activity</p>
+    </div>
+
+    <div class="github-wrapper">
+      <div class="github-grid">
+        <div class="contrib-graph fade-up" id="contribGraph" aria-label="GitHub contribution graph" role="region" tabindex="0">
+          <a id="contribLink" href="#" target="_blank" rel="noopener">
+            <img id="contribImg" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='880' height='240' viewBox='0 0 880 240'%3E%3Crect width='100%25' height='100%25' fill='%23071026'/%3E%3C/svg%3E" alt="GitHub contribution graph" loading="lazy" decoding="async">
+          </a>
+        </div>
+
+        <div class="gh-cards">
+          <div class="gh-card gh-stats fade-up" id="ghStats" aria-label="GitHub stats card">
+            <a id="statsLink" href="#" target="_blank" rel="noopener">
+              <img id="statsImg" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='140' viewBox='0 0 600 140'%3E%3Crect width='100%25' height='100%25' fill='%23071026'/%3E%3C/svg%3E" alt="GitHub stats" loading="lazy" decoding="async">
+            </a>
+          </div>
+
+          <div class="gh-card gh-langs fade-up" id="ghLangs" aria-label="Top languages card">
+            <a id="langsLink" href="#" target="_blank" rel="noopener">
+              <img id="langsImg" src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='100' viewBox='0 0 600 100'%3E%3Crect width='100%25' height='100%25' fill='%23071026'/%3E%3C/svg%3E" alt="Top languages" loading="lazy" decoding="async">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="experience" class="section-container reveal">
     <div class="section-header">
       <h2>My <span class="gradient-text">Experience</span></h2>

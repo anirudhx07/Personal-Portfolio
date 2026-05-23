@@ -7,6 +7,8 @@ fetch("data/content.json")
     loadAbout(data);
     loadSkills(data.skills);
     loadProjects(data.projects);
+    // initialize GitHub Activity section (populates links if available)
+    try { loadGithubSection(); } catch (e) { /* ignore if function missing */ }
     loadExperience(data.experience);
     loadCertifications(data.certifications);
     loadContact(data.contact);
@@ -52,6 +54,95 @@ function loadAbout(data) {
     // fail silently — visibility will be handled by existing scripts
     console.warn('About observe error', e);
   }
+}
+
+// Lightweight hook to wire GitHub section links if contact.github exists
+function loadGithubSection() {
+  const profile = data?.contact?.github;
+  if (!profile) return;
+  const match = profile.match(/github\.com\/(.+?)(?:\/|$)/i);
+  if (!match) return;
+  const username = match[1].replace(/\W+$/, '');
+
+  const contrib = document.getElementById('contribGraph');
+  const stats = document.getElementById('ghStats');
+  const langs = document.getElementById('ghLangs');
+  const contribImg = document.getElementById('contribImg');
+  const contribLink = document.getElementById('contribLink');
+  const statsImg = document.getElementById('statsImg');
+  const statsLink = document.getElementById('statsLink');
+  const langsImg = document.getElementById('langsImg');
+  const langsLink = document.getElementById('langsLink');
+
+  // Build widget URLs
+  const contribURL = `https://ghchart.rshah.org/${username}`;
+  // use a dark-friendly theme to ensure visibility on the portfolio's dark background
+  const statsURL = `https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=dark&hide_border=true`;
+  const langsURL = `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=dark&hide_border=true`;
+
+  // Helper to safely preload and swap image source with loading/fallback handling
+  function makeFallback(text, w = 600, h = 120) {
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}'><rect width='100%' height='100%' fill='#071026'/><text x='50%' y='50%' fill='#9ca3af' font-family='Inter,Arial,sans-serif' font-size='16' dominant-baseline='middle' text-anchor='middle'>${text}</text></svg>`;
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+  }
+
+  const fallbackContrib = makeFallback('Contributions unavailable', 880, 240);
+  const fallbackStats = makeFallback('GitHub stats unavailable', 600, 140);
+  const fallbackLangs = makeFallback('Top languages unavailable', 600, 100);
+
+  function safeLoad(imgEl, url, linkEl, fallback) {
+    if (!imgEl) return;
+    const container = imgEl.closest('.gh-card, .contrib-graph') || imgEl.parentElement;
+    if (container) container.classList.add('loading');
+    imgEl.setAttribute('aria-busy', 'true');
+    try { imgEl.loading = 'lazy'; imgEl.decoding = 'async'; } catch (e) {}
+
+    const loader = new Image();
+    loader.onload = () => {
+      // swap only after fully loaded to avoid layout shifts
+      imgEl.src = url;
+      if (container) container.classList.remove('loading');
+      imgEl.removeAttribute('aria-busy');
+    };
+    loader.onerror = () => {
+      // swap to a readable fallback so the card isn't empty
+      if (fallback) imgEl.src = fallback;
+      imgEl.classList.add('failed');
+      if (container) container.classList.remove('loading');
+      imgEl.removeAttribute('aria-busy');
+    };
+    // start preload
+    try { loader.src = url; } catch (e) { loader.onerror(); }
+
+    if (linkEl) {
+      linkEl.href = `https://github.com/${username}`;
+      linkEl.setAttribute('target', '_blank');
+      linkEl.setAttribute('rel', 'noopener');
+    }
+  }
+
+  // Load widgets immediately, then keep lazy observer as a lightweight fallback
+  safeLoad(contribImg, contribURL, contribLink, fallbackContrib);
+  safeLoad(statsImg, statsURL, statsLink, fallbackStats);
+  safeLoad(langsImg, langsURL, langsLink, fallbackLangs);
+
+  // Load widgets lazily when the section is near viewport
+  const widgetObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      // when the graph container enters view, load all widgets
+      safeLoad(contribImg, contribURL, contribLink);
+      safeLoad(statsImg, statsURL, statsLink);
+      safeLoad(langsImg, langsURL, langsLink);
+      obs.disconnect();
+    });
+  }, { rootMargin: '300px 0px' });
+
+  const triggerEl = document.getElementById('github-activity') || contrib;
+  if (triggerEl) widgetObserver.observe(triggerEl);
+
+  // still register fade-up elements for reveal animations
+  document.querySelectorAll('#github-activity .fade-up').forEach(el => { if (observer) observer.observe(el); });
 }
 
 function loadSkills(skills) {
@@ -313,9 +404,11 @@ function initHeroInteractions() {
   if (!roleEl) return;
 
   const roles = [
-    'AI & Cybersecurity Developer',
-    'Security-focused ML Engineer',
-    'Full-stack Web Engineer'
+    'AI & ML Developer',
+    'Android Developer (with AI Integration)',
+    'Full-stack Web Engineer',
+    'Flutter Developer',
+    'Drone Operations & Technical Engineer',
   ];
 
   // Prepare DOM
