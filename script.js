@@ -32,28 +32,73 @@ document.querySelectorAll(".fade-up").forEach(el => {
   observer.observe(el);
 });
 
+// Redesigned About Section Viewport Observer
+const aboutObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        aboutObserver.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.15
+  }
+);
+
+document.querySelectorAll(".about-section").forEach(el => {
+  aboutObserver.observe(el);
+});
+
 function loadAbout(data) {
-  // render into the aboutContent container (keeps section header intact)
-  document.getElementById("aboutContent").innerHTML = `
-    <div class="about-simple fade-up">
-      <p class="lead">${data.about.description.replace(/\n/g, "<br><br>")}</p>
+  const container = document.getElementById("aboutContent");
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="about-layout">
+      <!-- Left Column: Terminal Card -->
+      <div class="about-left">
+        <div class="about-terminal">
+          <div class="terminal-topbar">
+            <div class="terminal-dots">
+              <span class="dot-red"></span>
+              <span class="dot-yellow"></span>
+              <span class="dot-green"></span>
+            </div>
+            <div class="terminal-title">about.js</div>
+            <div style="width: 48px;"></div>
+          </div>
+          <pre class="terminal-body"><code><div class="code-line"><span class="line-number">1</span><span class="code-keyword">const</span> <span class="code-property">anirudh</span> <span class="code-syntax">=</span> <span class="code-syntax">{</span></div><div class="code-line"><span class="line-number">2</span>  <span class="code-property">name</span><span class="code-syntax">:</span> <span class="code-string">"Anirudh Kumar"</span><span class="code-syntax">,</span></div><div class="code-line"><span class="line-number">3</span>  <span class="code-property">education</span><span class="code-syntax">:</span> <span class="code-string">"B.Tech CSE (AI/ML)"</span><span class="code-syntax">,</span></div><div class="code-line"><span class="line-number">4</span>  <span class="code-property">university</span><span class="code-syntax">:</span> <span class="code-string">"GLA University"</span><span class="code-syntax">,</span></div><div class="code-line"><span class="line-number">5</span>  <span class="code-property">focus</span><span class="code-syntax">:</span> <span class="code-syntax">[</span></div><div class="code-line"><span class="line-number">6</span>    <span class="code-string">"Machine Learning"</span><span class="code-syntax">,</span></div><div class="code-line"><span class="line-number">7</span>    <span class="code-string">"Cybersecurity"</span><span class="code-syntax">,</span></div><div class="code-line"><span class="line-number">8</span>    <span class="code-string">"Flutter"</span></div><div class="code-line"><span class="line-number">9</span>  <span class="code-syntax">]</span><span class="code-syntax">,</span></div><div class="code-line"><span class="line-number">10</span>  <span class="code-property">alsoKnownFor</span><span class="code-syntax">:</span> <span class="code-syntax">[</span></div><div class="code-line"><span class="line-number">11</span>    <span class="code-string">"Drone Engineering"</span><span class="code-syntax">,</span></div><div class="code-line"><span class="line-number">12</span>    <span class="code-string">"Azure Cloud"</span><span class="code-syntax">,</span></div><div class="code-line"><span class="line-number">13</span>    <span class="code-string">"Competing & Winning"</span></div><div class="code-line"><span class="line-number">14</span>  <span class="code-syntax">]</span><span class="code-syntax">,</span></div><div class="code-line"><span class="line-number">15</span>  <span class="code-property">seeking</span><span class="code-syntax">:</span> <span class="code-string">"Internship Opportunities"</span><span class="code-syntax">,</span></div><div class="code-line"><span class="line-number">16</span>  <span class="code-property">available</span><span class="code-syntax">:</span> <span class="code-boolean">true</span></div><div class="code-line"><span class="line-number">17</span><span class="code-syntax">};</span><span class="code-cursor"></span></div></code></pre>
+        </div>
+      </div>
+
+      <!-- Right Column: Bio Paragraphs -->
+      <div class="about-right">
+        <div class="about-bio-wrapper">
+          <span class="bio-label">// who I am</span>
+          <div class="about-bio">
+            <p>A determined B.Tech CSE (AI/ML) student at <span class="bio-highlight">GLA University</span> who builds technology that solves real problems — from <span class="bio-highlight">AI-powered phishing detection</span> to <span class="bio-highlight">mobile neurological screening tools</span>.</p>
+            <p>Skilled in Android development (<span class="bio-highlight">Flutter</span>), cloud computing (<span class="bio-highlight">Azure</span>), and <span class="bio-highlight">drone engineering</span>, with a consistent track record of competing and winning.</p>
+            <p>Guided by a leadership-first mindset: I take full ownership on stage, in an arena, and behind a keyboard. Actively seeking <span class="bio-highlight">internship opportunities</span> to grow alongside industry professionals.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stat Pills Row -->
+    <div class="about-pills-row">
+      <div class="about-stat-pill">🎓 B.Tech CSE (AI/ML) · GLA University</div>
+      <div class="about-stat-pill">💻 6+ Projects Built</div>
+      <div class="about-stat-pill">🤝 Open to Internships</div>
+    </div>
+
+    <!-- Open to Work Badge -->
+    <div class="about-work-badge">
+      <div class="pulse-dot"></div>
+      <span>Open to internships & collaborations</span>
     </div>
   `;
-  // ensure newly-inserted fade-up elements are observed so they animate and become visible
-  try {
-    const aboutContainer = document.getElementById('aboutContent');
-    const newFadeEls = aboutContainer.querySelectorAll('.fade-up');
-    newFadeEls.forEach(el => {
-      // observe using the global observer defined earlier
-      if (typeof observer !== 'undefined' && observer.observe) observer.observe(el);
-      // if element already in viewport, reveal immediately
-      const rect = el.getBoundingClientRect();
-      if (rect.top >= 0 && rect.top < window.innerHeight) el.classList.add('show');
-    });
-  } catch (e) {
-    // fail silently — visibility will be handled by existing scripts
-    console.warn('About observe error', e);
-  }
 }
 
 // Lightweight hook to wire GitHub section links if contact.github exists
