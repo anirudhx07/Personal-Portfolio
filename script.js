@@ -295,7 +295,7 @@ function loadCertifications(certs) {
     card.className = "cert-card fade-up";
 
     card.innerHTML = `
-      <img src="${cert.image}" alt="${cert.name}">
+      <img src="${cert.image}" alt="${cert.name} certification" loading="lazy">
       <div class="cert-body">
         <h3>${cert.name}</h3>
         <p class="issuer">${cert.issuer}</p>
@@ -305,7 +305,7 @@ function loadCertifications(certs) {
           ${cert.skills.map(s => `<span class="tag">${s}</span>`).join("")}
         </div>
 
-        <a class="view-link" href="${cert.link}" target="_blank">
+        <a class="view-link" href="${cert.link}" target="_blank" rel="noopener">
           View Credential ↗
         </a>
       </div>
@@ -545,52 +545,10 @@ if (data && data.contact && data.contact.socials && footerIcons) {
     const link = document.createElement("a");
     link.href = item.url;
     link.target = "_blank";
-    link.innerHTML = `<i class="${item.icon}"></i>`;
+    link.rel = "noopener";
+    link.setAttribute("aria-label", item.name || "Social Link");
+    link.innerHTML = `<i class="${item.icon}" aria-hidden="true"></i>`;
     footerIcons.appendChild(link);
-  });
-}
-
-function initCertificates() {
-  const certGrid = document.querySelector(".cert-grid");
-  if (!certGrid || !data?.certifications) return;
-
-  certGrid.innerHTML = "";
-
-  data.certifications.forEach(cert => {
-    certGrid.innerHTML += `
-      <div class="cert-card">
-        <img src="${cert.image}" alt="${cert.name}">
-        <div class="cert-body">
-          <h3>${cert.name}</h3>
-          <p class="issuer">${cert.issuer}</p>
-          <p class="date">${cert.year}</p>
-
-          <div class="tags">
-            ${cert.skills.map(s => `<span class="tag">${s}</span>`).join("")}
-          </div>
-
-          <a class="view-link" href="${cert.link}" target="_blank">
-            View Credential ↗
-          </a>
-        </div>
-      </div>
-    `;
-  });
-}
-
-const certScroll = document.querySelector(".cert-scroll");
-const leftArrow = document.querySelector(".cert-arrow.left");
-const rightArrow = document.querySelector(".cert-arrow.right");
-
-if (certScroll && leftArrow && rightArrow) {
-  const scrollAmount = 360;
-
-  leftArrow.addEventListener("click", () => {
-    certScroll.scrollLeft -= scrollAmount;
-  });
-
-  rightArrow.addEventListener("click", () => {
-    certScroll.scrollLeft += scrollAmount;
   });
 }
 
@@ -638,31 +596,96 @@ function updateArrows() {
 
 scrollContainer.addEventListener("scroll", updateArrows);
 updateArrows(); // run on load
+});
 
+// ==========================================
+// Hamburger Menu & Accessibility Focus Trap
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+  const hamburger = document.getElementById("hamburger");
+  const navLinksContainer = document.getElementById("navLinks");
+  const navLinks = document.querySelectorAll(".nav-links a");
 
-function updateArrows() {
-  // Hide LEFT arrow at start
-  if (scrollContainer.scrollLeft <= 0) {
-    leftArrow.style.opacity = "0";
-    leftArrow.style.pointerEvents = "none";
-  } else {
-    leftArrow.style.opacity = "1";
-    leftArrow.style.pointerEvents = "auto";
+  if (hamburger && navLinksContainer) {
+    hamburger.setAttribute("aria-expanded", "false");
+
+    hamburger.addEventListener("click", () => {
+      const isExpanded = hamburger.getAttribute("aria-expanded") === "true";
+      hamburger.setAttribute("aria-expanded", !isExpanded);
+      hamburger.classList.toggle("active");
+      navLinksContainer.classList.toggle("active");
+      
+      if (!isExpanded) {
+        document.body.style.overflow = "hidden"; // Prevent background scroll
+        // Focus first link in drawer
+        const firstLink = navLinksContainer.querySelector("a");
+        if (firstLink) {
+          setTimeout(() => firstLink.focus(), 100);
+        }
+      } else {
+        document.body.style.overflow = "";
+      }
+    });
+
+    // Close mobile menu when a nav link is clicked
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navLinksContainer.classList.remove("active");
+        hamburger.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      });
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && navLinksContainer.classList.contains("active")) {
+        hamburger.classList.remove("active");
+        navLinksContainer.classList.remove("active");
+        hamburger.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+        hamburger.focus();
+      }
+    });
+
+    // Trap focus inside mobile drawer
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Tab" && navLinksContainer.classList.contains("active")) {
+        const focusables = Array.from(navLinksContainer.querySelectorAll("a[href]"));
+        const elements = [hamburger, ...focusables];
+        const first = elements[0];
+        const last = elements[elements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    });
   }
 
-  // Hide RIGHT arrow at end
-  if (
-    scrollContainer.scrollLeft + scrollContainer.clientWidth >=
-    scrollContainer.scrollWidth - 5
-  ) {
-    rightArrow.style.opacity = "0";
-    rightArrow.style.pointerEvents = "none";
-  } else {
-    rightArrow.style.opacity = "1";
-    rightArrow.style.pointerEvents = "auto";
+  // ==========================================
+  // Back to Top Button scroll handler
+  // ==========================================
+  const backToTopBtn = document.getElementById("backToTop");
+  if (backToTopBtn) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add("show");
+      } else {
+        backToTopBtn.classList.remove("show");
+      }
+    });
+
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   }
-}
-
-
-scrollContainer.addEventListener("scroll", updateArrows);
-updateArrows();});
+});

@@ -168,6 +168,23 @@
     "phone": "8604772650",
     "linkedin": "https://www.linkedin.com/in/anirudh-kumar-39b026366/",
     "github": "https://github.com/anirudhx07",
-    "instagram": "https://www.instagram.com/anirudh_k221/"
+    "instagram": "https://www.instagram.com/anirudh_k221/",
+    "socials": [
+      {
+        "name": "GitHub",
+        "url": "https://github.com/anirudhx07",
+        "icon": "fa-brands fa-github"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/anirudh-kumar-39b026366/",
+        "icon": "fa-brands fa-linkedin-in"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/anirudh_k221/",
+        "icon": "fa-brands fa-instagram"
+      }
+    ]
   }
 }
