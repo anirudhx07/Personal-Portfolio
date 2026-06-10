@@ -103,89 +103,6 @@ function loadAbout(data) {
 
 // Lightweight hook to wire GitHub section links if contact.github exists
 function loadGithubSection() {
-  const profile = data?.contact?.github;
-  if (!profile) return;
-  const match = profile.match(/github\.com\/(.+?)(?:\/|$)/i);
-  if (!match) return;
-  const username = match[1].replace(/\W+$/, '');
-
-  const contrib = document.getElementById('contribGraph');
-  const stats = document.getElementById('ghStats');
-  const langs = document.getElementById('ghLangs');
-  const contribImg = document.getElementById('contribImg');
-  const contribLink = document.getElementById('contribLink');
-  const statsImg = document.getElementById('statsImg');
-  const statsLink = document.getElementById('statsLink');
-  const langsImg = document.getElementById('langsImg');
-  const langsLink = document.getElementById('langsLink');
-
-  // Build widget URLs
-  const contribURL = `https://ghchart.rshah.org/${username}`;
-  // use a dark-friendly theme to ensure visibility on the portfolio's dark background
-  const statsURL = `https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=dark&hide_border=true`;
-  const langsURL = `https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=dark&hide_border=true`;
-
-  // Helper to safely preload and swap image source with loading/fallback handling
-  function makeFallback(text, w = 600, h = 120) {
-    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}'><rect width='100%' height='100%' fill='#071026'/><text x='50%' y='50%' fill='#9ca3af' font-family='Inter,Arial,sans-serif' font-size='16' dominant-baseline='middle' text-anchor='middle'>${text}</text></svg>`;
-    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-  }
-
-  const fallbackContrib = makeFallback('Contributions unavailable', 880, 240);
-  const fallbackStats = makeFallback('GitHub stats unavailable', 600, 140);
-  const fallbackLangs = makeFallback('Top languages unavailable', 600, 100);
-
-  function safeLoad(imgEl, url, linkEl, fallback) {
-    if (!imgEl) return;
-    const container = imgEl.closest('.gh-card, .contrib-graph') || imgEl.parentElement;
-    if (container) container.classList.add('loading');
-    imgEl.setAttribute('aria-busy', 'true');
-    try { imgEl.loading = 'lazy'; imgEl.decoding = 'async'; } catch (e) {}
-
-    const loader = new Image();
-    loader.onload = () => {
-      // swap only after fully loaded to avoid layout shifts
-      imgEl.src = url;
-      if (container) container.classList.remove('loading');
-      imgEl.removeAttribute('aria-busy');
-    };
-    loader.onerror = () => {
-      // swap to a readable fallback so the card isn't empty
-      if (fallback) imgEl.src = fallback;
-      imgEl.classList.add('failed');
-      if (container) container.classList.remove('loading');
-      imgEl.removeAttribute('aria-busy');
-    };
-    // start preload
-    try { loader.src = url; } catch (e) { loader.onerror(); }
-
-    if (linkEl) {
-      linkEl.href = `https://github.com/${username}`;
-      linkEl.setAttribute('target', '_blank');
-      linkEl.setAttribute('rel', 'noopener');
-    }
-  }
-
-  // Load widgets immediately, then keep lazy observer as a lightweight fallback
-  safeLoad(contribImg, contribURL, contribLink, fallbackContrib);
-  safeLoad(statsImg, statsURL, statsLink, fallbackStats);
-  safeLoad(langsImg, langsURL, langsLink, fallbackLangs);
-
-  // Load widgets lazily when the section is near viewport
-  const widgetObserver = new IntersectionObserver((entries, obs) => {
-    entries.forEach(en => {
-      if (!en.isIntersecting) return;
-      // when the graph container enters view, load all widgets
-      safeLoad(contribImg, contribURL, contribLink);
-      safeLoad(statsImg, statsURL, statsLink);
-      safeLoad(langsImg, langsURL, langsLink);
-      obs.disconnect();
-    });
-  }, { rootMargin: '300px 0px' });
-
-  const triggerEl = document.getElementById('github-activity') || contrib;
-  if (triggerEl) widgetObserver.observe(triggerEl);
-
   // still register fade-up elements for reveal animations
   document.querySelectorAll('#github-activity .fade-up').forEach(el => { if (observer) observer.observe(el); });
 }
@@ -257,64 +174,40 @@ function loadProjects(projects) {
   }
 }
 
-/* Project interactions: filtering, lazy-load images, and reveal animations */
+/* Project interactions: filtering and reveal animations */
 function initProjectInteractions() {
-  // Filtering
-  const filterBtns = document.querySelectorAll('.filter-btn');
+  // New filter tabs
+  const filterBtns = document.querySelectorAll('.project-filter-btn');
   const cards = Array.from(document.querySelectorAll('.project-card'));
 
   function applyFilter(filter) {
     cards.forEach(card => {
-      const cat = card.dataset.category || 'all';
-      if (filter === 'all' || cat === filter) {
-        card.classList.remove('filtered-out');
-        card.style.display = '';
-        // ensure reveal observer re-adds show class
+      const cats = (card.dataset.category || '').split(/\s+/);
+      const show = filter === 'all' || cats.includes(filter);
+      if (show) {
+        card.classList.remove('card-hidden');
+        card.style.position = '';
+        card.style.visibility = '';
         if (typeof observer !== 'undefined') observer.observe(card);
       } else {
-        card.classList.add('filtered-out');
-        // hide after animation so layout transitions smoothly
-        setTimeout(() => { card.style.display = 'none'; }, 280);
+        card.classList.add('card-hidden');
+        // After transition, collapse from flow
+        setTimeout(() => {
+          if (card.classList.contains('card-hidden')) {
+            card.style.position = 'absolute';
+            card.style.visibility = 'hidden';
+          }
+        }, 320);
       }
     });
   }
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      btn.setAttribute('aria-pressed','true');
       applyFilter(btn.dataset.filter);
     });
-  });
-
-  // Lazy-load project images with IntersectionObserver
-  const imgs = document.querySelectorAll('.project-thumb-img');
-  const imgObserver = new IntersectionObserver((entries, obs) => {
-    entries.forEach(en => {
-      if (!en.isIntersecting) return;
-      const img = en.target;
-      const src = img.dataset.src;
-      if (src) {
-        const fallbackSrc = img.getAttribute('src') || '';
-        img.src = src;
-        img.onload = () => img.classList.add('loaded');
-        img.onerror = () => {
-          if (fallbackSrc && img.src !== fallbackSrc) {
-            img.src = fallbackSrc;
-          }
-          img.classList.add('loaded');
-        };
-        img.removeAttribute('data-src');
-      }
-      obs.unobserve(img);
-    });
-  }, { rootMargin: '200px 0px' });
-
-  imgs.forEach(i => imgObserver.observe(i));
-
-  // Ensure keyboard accessibility for filter buttons
-  document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
     });
