@@ -626,4 +626,23 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
+
+  // Navbar scroll transparency listener
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.style.background = 'rgba(4, 12, 28, 0.88)';
+      navbar.style.backdropFilter = 'blur(14px)';
+      navbar.style.webkitBackdropFilter = 'blur(14px)';
+      navbar.style.borderBottom = '1px solid rgba(34, 211, 238, 0.1)';
+    } else {
+      navbar.style.background = 'transparent';
+      navbar.style.backdropFilter = 'none';
+      navbar.style.webkitBackdropFilter = 'none';
+      navbar.style.borderBottom = 'none';
+    }
+  });
+
+  // Run once on load in case page is already scrolled
+  window.dispatchEvent(new Event('scroll'));
 });
