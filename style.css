@@ -152,7 +152,7 @@ section {
 }
 
 /* =========================
-   HERO – IMAGE BACKGROUND
+   HERO – VIDEO BACKGROUND
 ========================= */
 
 .hero {
@@ -160,90 +160,167 @@ section {
   min-height: 100vh;
   margin-top: 0;
   padding-top: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   text-align: center;
   overflow: hidden;
 
-  /* 🔥 Background image */
+  /* Existing image remains as fallback */
   background:
-    linear-gradient(rgba(2, 6, 23, 0.76), rgba(2, 6, 23, 0.88)),
+    linear-gradient(
+      rgba(2, 6, 23, 0.72),
+      rgba(2, 6, 23, 0.88)
+    ),
     url("assets/images/hero-bg.jpg");
 
-  background-attachment: fixed;
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
 }
 
-/* optional texture overlay */
+
+/* =========================
+   HERO – BACKGROUND VIDEO
+========================= */
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  display: block;
+}
+
+
+/* =========================
+   HERO – DARK VIDEO OVERLAY
+========================= */
+
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at bottom,
-    rgba(34, 211, 238, 0.15),
-    transparent 70%
-  );
-  pointer-events: none;
+
+  width: 100%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(2, 6, 23, 0.58),
+      rgba(2, 6, 23, 0.72)
+    );
+
   z-index: 1;
+
+  pointer-events: none;
 }
 
-.hero-dots {
-  position: absolute;
-  top: -10%;
-  left: -10%;
-  width: 120%;
-  height: 120%;
-  background-image:
-    radial-gradient(circle at 1.5px 1.5px, rgba(34, 211, 238, 0.15) 1.5px, transparent 0);
-  background-size: 30px 30px;
-  opacity: 0.45;
-  animation: dotsDrift 30s linear infinite;
-  pointer-events: none;
-  z-index: 1;
-}
 
-.hero-scanlines {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.03) 0px,
-    rgba(255, 255, 255, 0.03) 1px,
-    transparent 1px,
-    transparent 4px
-  );
-  pointer-events: none;
-  z-index: 1;
-}
+/* =========================
+   HERO – GLOW EFFECTS
+========================= */
 
 .hero-glow {
   position: absolute;
+
   border-radius: 50%;
+
   filter: blur(130px);
+
   pointer-events: none;
+
   z-index: 1;
+
   will-change: transform, opacity;
 }
 
-.hero-glow-1 {
-  top: -10%;
-  left: 10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.18) 0%, transparent 70%);
-  animation: floatGlow1 28s ease-in-out infinite alternate;
+
+/* If you have hero-glow-2 */
+.hero-glow-2 {
+  position: absolute;
+
+  pointer-events: none;
+
+  z-index: 1;
 }
 
-.hero-glow-2 {
-  bottom: -10%;
-  right: 5%;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(192, 132, 252, 0.15) 0%, transparent 70%);
-  animation: floatGlow2 34s ease-in-out infinite alternate;
+
+/* =========================
+   HERO – MAIN CONTENT
+========================= */
+
+.hero-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+}
+
+
+/* =========================
+   HERO – CONTENT GRID
+========================= */
+
+.hero-grid {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* =========================
+   HERO – RESPONSIVE VIDEO
+========================= */
+
+@media (max-width: 768px) {
+  .hero-video {
+    object-position: center center;
+  }
+
+  .hero-overlay {
+    background:
+      linear-gradient(
+        135deg,
+        rgba(2, 6, 23, 0.68),
+        rgba(2, 6, 23, 0.82)
+      );
+  }
+}
+
+
+/* =========================
+   HERO – REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none;
+  }
+
+  .hero {
+    background:
+      linear-gradient(
+        rgba(2, 6, 23, 0.72),
+        rgba(2, 6, 23, 0.88)
+      ),
+      url("assets/images/hero-bg.jpg");
+
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
 }
 
 @keyframes dotsDrift {
