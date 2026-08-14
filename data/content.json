@@ -90,14 +90,6 @@
 ],
   "certifications": [
   {
-  "name": "Rocket Propulsion Webinar",
-  "issuer": "Aeroin EduTech",
-  "year": "2026",
-  "image": "assets/images/certificates/isro.png",
-  "skills": ["Rocket Propulsion", "Aerospace Engineering", "Space Technology"],
-  "link": "assets/images/certificates/isro.png"
-  },
-  {
   "name": "Microsoft Azure Fundamentals (AZ-900)",
   "issuer": "Microsoft",
   "year": "2026",
@@ -106,12 +98,28 @@
   "link": "assets/images/certificates/az_900.jpeg"
   },
   {
-    "name": "Web Development Basics",
-    "issuer": "Physics Wallah",
-    "year": "2025",
-    "image": "assets/images/certificates/physics-wallah.png",
-    "skills": ["HTML", "CSS", "JavaScript"],
-    "link": "assets/images/certificates/physics-wallah.png"
+  "name": "Rising Fighters (Drone Competition)",
+  "issuer": "GLA University",
+  "year": "2026",
+  "image": "assets/images/certificates/rising_fighter.jpeg",
+  "skills": ["Drone Technology", "UAV", "Drone Operations", "Teamwork", "Problem Solving"],
+  "link": "assets/images/certificates/rising_fighter.jpeg"
+  },
+  {
+  "name": "Rocket Propulsion Webinar",
+  "issuer": "Aeroin EduTech",
+  "year": "2026",
+  "image": "assets/images/certificates/isro.png",
+  "skills": ["Rocket Propulsion", "Aerospace Engineering", "Space Technology"],
+  "link": "assets/images/certificates/isro.png"
+  },
+  {
+  "name": "India AI Impact Buildathon",
+  "issuer": "GUVI & HCL",
+  "year": "2026",
+  "image": "assets/images/certificates/hcl.png",
+  "skills": ["Artificial Intelligence", "AI Problem Solving", "Innovation", "Technical Skills"],
+  "link": "assets/images/certificates/hcl.png"
   },
   {
     "name": "Escalate X v2 Hackathon",
@@ -122,41 +130,66 @@
     "link": "assets/images/certificates/cybernoites.jpeg"
   },
   {
+  "name": "Elite Hack 1.0",
+  "issuer": "Elite Coders",
+  "year": "2026",
+  "image": "assets/images/certificates/elite_code.jpg",
+  "skills": ["Hackathon", "Problem Solving", "Teamwork", "Innovation"],
+  "link": "assets/images/certificates/elite_code.jpg"
+  },
+  {
+  "name": "36-Hour Hackathon",
+  "issuer": "Shivalik College of Engineering",
+  "year": "2026",
+  "image": "assets/images/certificates/shivalik.jpeg",
+  "skills": ["Hackathon", "Problem Solving", "Innovation", "Technical Skills", "Teamwork"],
+  "link": "assets/images/certificates/shivalik.jpeg"
+  },
+  {
+  "name": "Maximize Productivity With AI Tools",
+  "issuer": "Google",
+  "year": "2026",
+  "image": "assets/images/certificates/coursera.jpeg",
+  "skills": ["AI Tools", "Artificial Intelligence", "Productivity", "Generative AI"],
+  "link": "assets/images/certificates/coursera.jpeg"
+  },
+  {
+  "name": "AINCAT 2026",
+  "issuer": "Naukri Campus",
+  "year": "2026",
+  "image": "assets/images/certificates/aincat.jpeg",
+  "skills": ["Aptitude", "Quantitative Aptitude", "Logical Reasoning", "Problem Solving"],
+  "link": "assets/images/certificates/aincat.jpeg",
+  "achievement": "All India Rank: 7260"
+  },
+  {
+  "name": "Udaan '25",
+  "issuer": "CATJEE",
+  "year": "2025",
+  "image": "assets/images/certificates/catjee.jpeg",
+  "skills": ["Anchoring", "Public Speaking", "Communication", "Event Hosting"],
+  "link": "assets/images/certificates/catjee.jpeg"
+  },
+  {
+    "name": "Web Development Basics",
+    "issuer": "Physics Wallah",
+    "year": "2025",
+    "image": "assets/images/certificates/physics-wallah.png",
+    "skills": ["HTML", "CSS", "JavaScript"],
+    "link": "assets/images/certificates/physics-wallah.png"
+  },
+  {
     "name": "Ethical Hacking",
     "issuer": "Online Platform",
-    "year": "2024",
+    "year": "2026",
     "image": "assets/images/certificates/ethical-ai.jpeg",
     "skills": ["Ethical Hacking", "Security"],
     "link": "assets/images/certificates/ethical-ai.jpeg"
   },
   {
-    "name": "GPT-3 & LLMs",
-    "issuer": "Online Platform",
-    "year": "2024",
-    "image": "assets/images/certificates/gpt-3.jpeg",
-    "skills": ["LLMs", "AI"],
-    "link": "assets/images/certificates/gpt-3.jpeg"
-  },
-  {
-    "name": "GPT Models Deep Dive",
-    "issuer": "Online Platform",
-    "year": "2024",
-    "image": "assets/images/certificates/gpt-models.jpeg",
-    "skills": ["AI", "Prompting"],
-    "link": "assets/images/certificates/gpt-models.jpeg"
-  },
-  {
-    "name": "Prompt Engineering",
-    "issuer": "Online Platform",
-    "year": "2024",
-    "image": "assets/images/certificates/prompt-engineering.jpeg",
-    "skills": ["Prompt Engineering"],
-    "link": "assets/images/certificates/prompt-engineering.jpeg"
-  },
-  {
     "name": "Software Engineering",
     "issuer": "Online Platform",
-    "year": "2024",
+    "year": "2026",
     "image": "assets/images/certificates/software-engineering.jpeg",
     "skills": ["Software Design"],
     "link": "assets/images/certificates/software-engineering.jpeg"
@@ -164,11 +197,19 @@
   {
     "name": "Yuva AI Program",
     "issuer": "Government of India",
-    "year": "2024",
+    "year": "2026",
     "image": "assets/images/certificates/yuva-ai.jpeg",
     "skills": ["AI", "Innovation"],
     "link": "assets/images/certificates/yuva-ai.jpeg"
-  }
+  },
+  {
+  "name": "Ultimate Student Award",
+  "issuer": "Dainik Jagran - Inext & Ambition",
+  "year": "2023",
+  "image": "assets/images/certificates/danik.jpeg",
+  "skills": ["Academic Excellence", "Academic Performance", "Achievement"],
+  "link": "assets/images/certificates/danik.jpeg"
+ }
 ],
 
   "contact": {
