@@ -90,6 +90,22 @@
 ],
   "certifications": [
   {
+  "name": "Rocket Propulsion Webinar",
+  "issuer": "Aeroin EduTech",
+  "year": "2026",
+  "image": "assets/images/certificates/isro.png",
+  "skills": ["Rocket Propulsion", "Aerospace Engineering", "Space Technology"],
+  "link": "assets/images/certificates/isro.png"
+  },
+  {
+  "name": "Microsoft Azure Fundamentals (AZ-900)",
+  "issuer": "Microsoft",
+  "year": "2026",
+  "image": "assets/images/certificates/az_900.jpeg",
+  "skills": ["Microsoft Azure", "Cloud Computing", "Azure Fundamentals"],
+  "link": "assets/images/certificates/az_900.jpeg"
+  },
+  {
     "name": "Web Development Basics",
     "issuer": "Physics Wallah",
     "year": "2025",
@@ -101,9 +117,9 @@
     "name": "Escalate X v2 Hackathon",
     "issuer": "Cyberonites Club, GLA",
     "year": "2025",
-    "image": "assets/images/certificates/cyberonites.png",
+    "image": "assets/images/certificates/cybernoites.jpeg",
     "skills": ["Cybersecurity", "CTF", "Teamwork"],
-    "link": "assets/images/certificates/cyberonites.png"
+    "link": "assets/images/certificates/cybernoites.jpeg"
   },
   {
     "name": "Ethical Hacking",
@@ -152,14 +168,6 @@
     "image": "assets/images/certificates/yuva-ai.jpeg",
     "skills": ["AI", "Innovation"],
     "link": "assets/images/certificates/yuva-ai.jpeg"
-  },
-  {
-    "name": "Hero Program",
-    "issuer": "Online Platform",
-    "year": "2024",
-    "image": "assets/images/certificates/hero-bg.jpg",
-    "skills": ["Leadership"],
-    "link": "assets/images/certificates/hero-bg.jpg"
   }
 ],
 
